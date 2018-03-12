@@ -5,7 +5,7 @@
   "author": "Sergey <sergeygarnov1991@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.prod.conf.js",
     "start": "node main.js",
     "build": "node build/build.js"
   },
