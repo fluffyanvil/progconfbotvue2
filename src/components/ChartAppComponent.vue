@@ -25,6 +25,9 @@
         </div>
       </div>
     </div>
+</div>
+
+<div class="ui three column grid cards">
     <div class="card">
       <div class="content">
         <div class="ui statistic">
@@ -55,21 +58,20 @@
         </div>
       </div>
     </div>
-</div>
-
-<div class="ui one column cards grid">
-  <div class="card fluid card">
-    <div class="content">
-      <div class="header">5 last joined users:</div>
-      <div class="description">
-        <ul class="ui list">
-          <li v-for="user in lastUsers" v-bind:key="user.firstName">
-            {{ user.firstName }}
-          </li>
-        </ul>
+    <div class="card">
+      <div class="content">
+        <div class="header">5 last joined users:</div>
+        <div class="description">          
+          <div class="left aligned column">
+            <div class="ui vertical fluid menu" v-for="user in lastUsers" v-bind:key="user.firstName">
+              <div class="header item">
+              {{ user.firstName }}
+              </div>              
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 </div>
 
 <div class="ui one column cards grid">
