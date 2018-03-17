@@ -74,36 +74,59 @@
     </div>
 </div>
 
-<div class="ui one column cards grid">
-  <chart  label='Messages'
-            api-url='http://progconfbot.herokuapp.com/api/m/'
-            chart-id="messages"
-            background-color='rgba(255, 99, 132, 0.2)'
-            border-color='rgba(255,99,132,1)'
-            border-width='1'></chart>
-</div>
+<!-- 
+
+
+
+ 
 
 <div class="ui one column cards grid">
-        <chart label='Stickers'
-            api-url='http://progconfbot.herokuapp.com/api/s/'
-            chart-id="stickers"
-            background-color='rgba(152, 99, 132, 0.2)'
-            border-color='rgba(152,99,132,1)'
-            border-width=1></chart>
-</div>
+  
+</div>   -->
+  <div class="ui one column cards grid">
+    <div class="card fluid card">
+        <div class="content">
+          <vue-tabs active-tab-color="#175" 
+                active-text-color="white"
+                type="pills"
+                centered>
+            <v-tab title="Daily activity">
+              <div class="ui one column cards grid">
+                  <chart  label='Messages'
+                          api-url='http://progconfbot.herokuapp.com/api/m/'
+                          chart-id="messages"
+                          background-color='rgba(255, 99, 132, 0.2)'
+                          border-color='rgba(255,99,132,1)'
+                          border-width='1'></chart>
+              </div>
+              <div class="ui one column cards grid">
+                  <chart label='Stickers'
+                          api-url='http://progconfbot.herokuapp.com/api/s/'
+                          chart-id="stickers"
+                          background-color='rgba(152, 99, 132, 0.2)'
+                          border-color='rgba(152,99,132,1)'
+                          border-width=1></chart>
+              </div>
+              
+            </v-tab>
 
-<div class="ui one column cards grid">
-  <bar label='Messages'
-            api-url='http://progconfbot.herokuapp.com/api/top/m/'
-            chart-id="top-messages"></bar>
-</div>   
+            <v-tab title="User activity">
+              <div class="ui one column cards grid">
+                <bar label='Messages'
+                              api-url='http://progconfbot.herokuapp.com/api/top/m/'
+                              chart-id="top-messages"></bar>
+              </div>              
 
-<div class="ui one column cards grid">
-  <bar label='Stickers'
-            api-url='http://progconfbot.herokuapp.com/api/top/s/'
-            chart-id="top-stickers"></bar>
-</div>  
-    
+              <div class="ui one column cards grid">
+                <bar label='Stickers'
+                          api-url='http://progconfbot.herokuapp.com/api/top/s/'
+                          chart-id="top-stickers"></bar>
+              </div>              
+            </v-tab>
+          </vue-tabs>
+        </div>
+      </div>    
+  </div>
     
 
     
@@ -116,6 +139,11 @@
 import bar from './BarChartComponent.vue'
 import chart from './LineChartComponent.vue';
 import axios from 'axios';
+
+import {VueTabs, VTab} from 'vue-nav-tabs'
+//you can also import this in your style tag
+import 'vue-nav-tabs/themes/vue-tabs.css'
+
 export default {
   name: 'ChartApp',
   data() {
@@ -128,7 +156,10 @@ export default {
     }
   },
   components: {
-      chart, bar
+    VueTabs,
+    VTab,
+    chart,
+    bar
   },
 
   methods: {
@@ -161,7 +192,7 @@ export default {
       this.updateLastUsers();
   },
   mounted: function() {
-    $('.tabular.menu .item').tab();
+
   }
 }
 </script>
