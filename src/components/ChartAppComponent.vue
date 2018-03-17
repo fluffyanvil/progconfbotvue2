@@ -82,7 +82,7 @@
                     type="pills"
                     centered>
             <v-tab title="Daily activity">
-              <div class="ui one column cards grid">
+              <div class="ui one column cards grid" style="margin-top: 20px;">
                   <chart  label='Messages'
                           api-url='http://progconfbot.herokuapp.com/api/m/'
                           chart-id="messages"
