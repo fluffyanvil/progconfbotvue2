@@ -9,10 +9,14 @@ import 'semantic-ui-css/semantic.min.css';
 
 Vue.config.productionTip = false
 Vue.use(SuiVue);
+const config = {
+  url : 'http://progconfbotvue.herokuapp.com'
+}
 /* eslint-disable no-new */
 const app = new Vue({
   el: '#app',
   router,
   components: { App,  ChartApp},
-  template: '<App/>'
+  template: '<App/>',
+  provide: {config}
 })

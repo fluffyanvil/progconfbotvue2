@@ -4,6 +4,7 @@ import ChartApp from '@/components/ChartAppComponent.vue'
 import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
+// Vue.component(ChartApp, {message: "hello"})
 
 export default new Router({
   mode: 'history',

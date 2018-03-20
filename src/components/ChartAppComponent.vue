@@ -1,77 +1,15 @@
 <template>
   <div>
     <div class="ui two column grid cards">
-      <div class="card">
-        <div class="content">
-          <div class="ui statistic">
-            <div class="value">
-              {{total.messagesTotal}}
-            </div>
-            <div class="label">
-              Total messages
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="content">
-          <div class="ui statistic">
-            <div class="value">
-              {{total.stickersTotal}}
-            </div>
-            <div class="label">
-              Total stickers
-            </div>
-          </div>
-        </div>
-      </div>
+      <total :url=this.url type="messages"></total>
+      <total :url=this.url type="stickers"></total>
     </div>
 
     <div class="ui three column grid cards">
-      <div class="card">
-        <div class="content">
-          <div class="ui statistic">
-            <div class="value">
-              {{today.todayMessagesTotal}}
-            </div>
-            <div class="label">
-              Today messages
-            </div>
-          </div>
-          <div class="description">
-            {{today.messagesDirection}}{{today.messagePercentage}}% of {{today.yesterdayMessagesTotal}} yesterday
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="content">
-          <div class="ui statistic">
-            <div class="value">
-              {{today.todayStickersTotal}}
-            </div>
-            <div class="label">
-              Today stickers
-            </div>
-          </div>
-          <div class="description">
-            {{today.stickersDirection}}{{today.stickerPercentage}}% of {{today.yesterdayStickersTotal}} yesterday
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="content">
-          <div class="header">5 last joined users:</div>
-          <div class="description">          
-            <div class="left aligned column">
-              <div class="ui vertical fluid menu" v-for="user in lastUsers" v-bind:key="user.firstName">
-                <div class="header item">
-                {{ user.firstName }} <a v-bind:href="'https://t.me/'+ user.username" v-show="user.username">@{{ user.username }}</a>
-                </div>              
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <today type="messages" :url=this.url ></today>
+      <today type="stickers" :url=this.url ></today>
+      <joined :url=this.url></joined>
+      
     </div>
 
     <div class="ui one column cards grid">
@@ -84,7 +22,7 @@
             <v-tab title="Daily activity">
               <div class="ui one column cards grid" style="margin-top: 20px;">
                   <chart  label='Messages'
-                          api-url='http://progconfbot.herokuapp.com/api/m/'
+                          :url=this.url
                           chart-id="messages"
                           background-color='rgba(255, 99, 132, 0.2)'
                           border-color='rgba(255,99,132,1)'
@@ -92,7 +30,7 @@
               </div>
               <div class="ui one column cards grid">
                   <chart  label='Stickers'
-                          api-url='http://progconfbot.herokuapp.com/api/s/'
+                          :url=this.url
                           chart-id="stickers"
                           background-color='rgba(152, 99, 132, 0.2)'
                           border-color='rgba(152,99,132,1)'
@@ -103,13 +41,13 @@
             <v-tab title="User activity">
               <div class="ui one column cards grid">
                 <bar  label='Messages'
-                      api-url='http://progconfbot.herokuapp.com/api/top/m/'
+                      :url=this.url
                       chart-id="top-messages"></bar>
               </div>              
 
               <div class="ui one column cards grid">
                 <bar  label='Stickers'
-                      api-url='http://progconfbot.herokuapp.com/api/top/s/'
+                      :url=this.url
                       chart-id="top-stickers"></bar>
               </div>              
             </v-tab>
@@ -123,6 +61,10 @@
 <script>
 import bar from './BarChartComponent.vue'
 import chart from './LineChartComponent.vue';
+import today from './TodayCardComponent.vue';
+import joined from './JoinedUsersComponent.vue';
+import total from './TotalCardComponent.vue';
+
 import axios from 'axios';
 
 import {VueTabs, VTab} from 'vue-nav-tabs'
@@ -130,13 +72,14 @@ import {VueTabs, VTab} from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
 
 export default {
+  inject : [ 'config' ],
   name: 'ChartApp',
   data() {
-      console.log("ChartApp");
     return {
         today: {},
         total: {},
         lastUsers: [],
+        url: this.config.url,
         chatId: this.$route.params.chatId
     }
   },
@@ -144,40 +87,10 @@ export default {
     VueTabs,
     VTab,
     chart,
-    bar
-  },
-
-  methods: {
-    updateToday: function () {
-        axios
-            .get('http://progconfbot.herokuapp.com/api/today/' + this.chatId)
-            .then(({data}) => {
-              this.today = data;
-            })
-            .catch((err) => {console.log(err)});
-    },
-    updateTotal: function () {
-        axios
-            .get('http://progconfbot.herokuapp.com/api/total/' + this.chatId)
-            .then(({data}) => {
-              this.total = data;
-            }).catch((err) => {console.log(err)});
-    },
-    updateLastUsers: function() {
-        axios
-            .get('http://progconfbot.herokuapp.com/api/users/last/' + this.chatId)
-            .then(({data}) => {
-            this.lastUsers = data;
-            }).catch((err) => {console.log(err)});
-    }
-  },
-  created: function(){
-    this.updateToday();
-    this.updateTotal();
-    this.updateLastUsers();
-  },
-  mounted: function() {
-
+    bar,
+    today,
+    joined,
+    total
   }
 }
 </script>
