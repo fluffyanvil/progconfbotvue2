@@ -2,7 +2,7 @@
     <div class="card">
         <div class="content">
             <div class="ui statistic">
-            <div class="value">
+            <div class="value" v-bind:class="{'ui label green': isUp(today), 'ui label red' : isDown(today)}">
                 {{today.todayCount}}
             </div>
             <div class="label">
@@ -10,8 +10,8 @@
             </div>
             </div>
             <div class="description">
-                <i class="arrow up icon" v-if="today.trend == 1"></i>
-                <i class="arrow down icon" v-if="today.trend == -1"></i>
+                <i class="arrow up icon" v-if="today.trend === 1"></i>
+                <i class="arrow down icon" v-if="today.trend === -1"></i>                
                 {{today.percentage}}% of {{today.yesterdayCount}} yesterday
             </div>
         </div>
@@ -31,12 +31,22 @@ export default {
         }
     },
 
+    methods:{
+        isUp : function(today){
+            return this.today.trend == 1;
+        },
+        isDown : function(today){
+            return this.today.trend == -1;
+        }
+    },
+
     mounted: function(){
         this.isBusy = true;
         axios
             .get(this.url + '/api2/' + this.type + '/stat/' + this.$route.params.chatId)
             .then(({data}) => {
                 this.today = data;
+                console.log(this.today)
             })
             .catch((err) => {
                 console.log(err);
