@@ -10,7 +10,9 @@
             </div>
             </div>
             <div class="description">
-            {{today.trend}}{{today.percentage}}% of {{today.yesterdayCount}} yesterday
+                <i class="arrow up icon" v-if="today.trend == 1"></i>
+                <i class="arrow down icon" v-if="today.trend == -1"></i>
+                {{today.percentage}}% of {{today.yesterdayCount}} yesterday
             </div>
         </div>
     </div>
