@@ -46,10 +46,8 @@ export default {
             .get(this.url + '/api2/' + this.type + '/stat/' + this.$route.params.chatId)
             .then(({data}) => {
                 this.today = data;
-                console.log(this.today)
             })
             .catch((err) => {
-                console.log(err);
                 this.isBusy = false;
         });
     }
