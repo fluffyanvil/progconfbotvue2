@@ -11,6 +11,7 @@ Vue.config.productionTip = false
 Vue.use(SuiVue);
 const config = {
   url : 'http://progconfbot.herokuapp.com'
+  //url : 'http://localhost:3000'
 }
 /* eslint-disable no-new */
 const app = new Vue({

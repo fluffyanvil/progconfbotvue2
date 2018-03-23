@@ -1,8 +1,8 @@
 <template>
-    <div class="card">
+    <div class="card"  v-bind:class="{'ui label green': isUp(today), 'ui label red' : isDown(today)}">
         <div class="content">
             <div class="ui statistic">
-            <div class="value" v-bind:class="{'ui label green': isUp(today), 'ui label red' : isDown(today)}">
+            <div class="value">
                 {{today.todayCount}}
             </div>
             <div class="label">

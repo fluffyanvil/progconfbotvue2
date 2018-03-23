@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="ui one column grid cards">
+      <chat :url=this.url></chat>
+    </div>
     <div class="ui two column grid cards">
       <total :url=this.url type="messages"></total>
       <total :url=this.url type="stickers"></total>
@@ -64,6 +67,7 @@ import chart from './LineChartComponent.vue';
 import today from './TodayCardComponent.vue';
 import joined from './JoinedUsersComponent.vue';
 import total from './TotalCardComponent.vue';
+import chat from './ChatInfoComponent.vue';
 
 import axios from 'axios';
 
@@ -90,7 +94,8 @@ export default {
     bar,
     today,
     joined,
-    total
+    total,
+    chat
   }
 }
 </script>
