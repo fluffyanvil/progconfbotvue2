@@ -2,9 +2,10 @@ language: node_js
 node_js:
   - "iojs"
   - "7"
-npm run build
 before_script:
   - npm install
 cache:
-directories:
-  - "node_modules"
+  directories:
+    - "node_modules"
+script:
+  - npm run build
